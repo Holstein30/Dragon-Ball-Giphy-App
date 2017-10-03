@@ -70,9 +70,15 @@ function run() {
 			imgDiv.attr("dataState", "still");	
 			imgDiv.attr("src", data.data[i].images.fixed_height_still.url);
 
-			$("#gifs").append(p);
+			var newDiv = $("<div>");
 
-			$("#gifs").append(imgDiv);
+			$("#gifs").append(newDiv);
+
+			newDiv.addClass("col-4");
+
+			newDiv.append(p);
+
+			newDiv.append(imgDiv);
 
 		}
 
