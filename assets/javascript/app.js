@@ -32,7 +32,9 @@ function createButtons() {
 	}
 }
 
-function run(search) {
+function run() {
+
+	var search = $(this).attr("data-name");
 
 	// Delete previous gifs
 
@@ -66,11 +68,6 @@ function run(search) {
 
 }
 
-$(".selector").on("click", function() {
-	var search = $(this).attr("data-name");
-	run(search);
-});
-
 // Add buttons from user input
 
 $("#addButton").on("click", function(event) {
@@ -90,6 +87,10 @@ $("#addButton").on("click", function(event) {
 	createButtons();
 
 });
+
+// Event listener for button clicks to display gifs
+
+$(document).on("click", ".selector", run);
 
 });
 
