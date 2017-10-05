@@ -43,8 +43,6 @@ function run() {
 	var key = "HCF4P1jvFZaxfD6G0XdeG1DyVc0B168L";
 	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + search + "&api_key=" + key + "&limit=10";
 
-	var counter = 0;
-
 	$.ajax ({
 		url: queryURL,
 		method: "GET"
@@ -53,36 +51,45 @@ function run() {
 
 		for (var i = 0; i < 10; i++) {
 
-			counter++;
+			// Filter out r rated gifs 
 
-			var imgDiv = $("<img>");
+			// if (data.data[i].rating !== "r") {
 
-			imgDiv.addClass("gif")
+				var imgDiv = $("<img>");
 
-			var rating = data.data[i].rating;
+				imgDiv.addClass("gif")
 
-			var p = $("<p>").text("Rating: " + rating);
+				var rating = data.data[i].rating;
 
-			// Data types for play/pause use & source url
+				var p = $("<p>").text("Rating: " + rating);
 
-			imgDiv.attr("dataStill", data.data[i].images.fixed_height_still.url);
-			imgDiv.attr("dataAnimate", data.data[i].images.fixed_height.url);
-			imgDiv.attr("dataState", "still");
-			imgDiv.attr("src", data.data[i].images.fixed_height_still.url);
+				// Data types for play/pause use & source url
 
-			var newDiv = $("<div>");
+				imgDiv.attr("dataStill", data.data[i].images.fixed_height_still.url);
+				imgDiv.attr("dataAnimate", data.data[i].images.fixed_height.url);
+				imgDiv.attr("dataState", "still");
+				imgDiv.attr("src", data.data[i].images.fixed_height_still.url);
 
-			$("#gifs").append(newDiv);
+				var newDiv = $("<div>");
 
-			newDiv.addClass("col-md-6 col-lg-4");
+				$("#gifs").append(newDiv);
 
-			newDiv.append(p);
+				newDiv.addClass("col-md-6 col-lg-4");
 
-			newDiv.append(imgDiv);
+				if (i === 9) {
+					newDiv.removeClass("col-lg-4")
+					newDiv.addClass("col-lg-12");
+				}
+
+				newDiv.append(p);
+
+				newDiv.append(imgDiv);
+
+			// }
 
 		}
 
-		// Add play/pause for gifs
+		// Add play/pause for gifs on click
 
 		$(".gif").on("click", function() {
 
@@ -113,13 +120,23 @@ $("#addButton").on("click", function(event) {
 
 	var userInput = $("#userInput").val().trim();
 
-	// Add input to names array
+	// Don't make button if input empty
 
-	names.push(userInput);
+	if (userInput === "" || userInput === null) {
+		$("#gifs").html("<div class='col-12'>'<h1>ERROR: Please Input a Name</h1>'");
+	}
+	else {
 
-	console.log(names);
+		// Add input to names array
 
-	createButtons();
+		names.push(userInput);
+
+		console.log(names);
+
+		$("#userInput").val("");
+
+		createButtons();
+	}
 
 });
 
@@ -129,6 +146,8 @@ $(document).on("click", ".selector", run);
 
 });
 
-// If input empty don't append button & make an error
-// On load load all gifs
+// ------ Things to Add --------
+// Add ability to submit input on enter
 
+// ----- Known Bugs ------
+// when filtering out by rating if a gif is rated r it leaves a blank space where the gif would have been

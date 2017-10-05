@@ -46,6 +46,11 @@ h1 {
 	height: 250px;
 }
 
+p {
+	font-size: 20px;
+	margin: 10px auto;
+}
+
 /*Media Queries*/
 
 @media screen and (max-width: 575px) {
