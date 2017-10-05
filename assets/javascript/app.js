@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 // Variables
 
-var names = ["Goku", "Vegeta", "Killua"];
+var names = ["Goku", "Vegeta", "Frieza"];
 
 createButtons();
 
@@ -67,14 +67,14 @@ function run() {
 
 			imgDiv.attr("dataStill", data.data[i].images.fixed_height_still.url);
 			imgDiv.attr("dataAnimate", data.data[i].images.fixed_height.url);
-			imgDiv.attr("dataState", "still");	
+			imgDiv.attr("dataState", "still");
 			imgDiv.attr("src", data.data[i].images.fixed_height_still.url);
 
 			var newDiv = $("<div>");
 
 			$("#gifs").append(newDiv);
 
-			newDiv.addClass("col-4");
+			newDiv.addClass("col-md-6 col-lg-4");
 
 			newDiv.append(p);
 
@@ -128,4 +128,7 @@ $("#addButton").on("click", function(event) {
 $(document).on("click", ".selector", run);
 
 });
+
+// If input empty don't append button & make an error
+// On load load all gifs
 
